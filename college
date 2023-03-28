@@ -1,0 +1,237 @@
+CREATE DATABASE college;
+
+use college;
+Database changed
+
+CREATE TABLE student(rollno  int(20) PRIMARY KEY,name varchar(50),degree varchar(30),year int,sex varchar(10));
+Query OK, 0 rows affected (0.31 sec)
+
+mysql> DESC student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int(20)     | NO   | PRI | NULL    |       |
+| name   | varchar(50) | YES  |     | NULL    |       |
+| degree | varchar(30) | YES  |     | NULL    |       |
+| year   | int(11)     | YES  |     | NULL    |       |
+| sex    | varchar(10) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> CREATE TABLE department(dep_no int PRIMARY KEY,dep_name varchar(20),HOD varchar(20),phoneno int(50));
+Query OK, 0 rows affected (0.40 sec)
+
+mysql> DESC department;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| dep_no   | int(11)     | NO   | PRI | NULL    |       |
+| dep_name | varchar(20) | YES  |     | NULL    |       |
+| HOD      | varchar(20) | YES  |     | NULL    |       |
+| phoneno  | int(50)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+CREATE TABLE professor(emp_id int PRIMARY KEY,name varchar(30),course varchar(20),sex varchar(20),start_year int,phoneno int);
+Query OK, 0 rows affected (0.30 sec)
+
+mysql> CREATE TABLE course(course_id int PRIMARY KEY,course_name varchar(30),min_credit int);
+Query OK, 0 rows affected (0.28 sec)
+
+mysql> DESC course;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| course_id   | int(11)     | NO   | PRI | NULL    |       |
+| course_name | varchar(30) | YES  |     | NULL    |       |
+| min_credit  | int(11)     | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+
+ INSERT INTO student VALUES(101,"Arya","Mca",2023,"female");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> DESC student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int(20)     | NO   | PRI | NULL    |       |
+| name   | varchar(50) | YES  |     | NULL    |       |
+| degree | varchar(30) | YES  |     | NULL    |       |
+| year   | int(11)     | YES  |     | NULL    |       |
+| sex    | varchar(10) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+
+ INSERT INTO student VALUES(102,"Harikrishnan","Bca",2023,"male"),(104,"Amritha","bsc cs",2022,"female");
+Query OK, 2 rows affected (0.04 sec)
+SELECT * FROM student;
++--------+--------------+--------+------+--------+
+| rollno | name         | degree | year | sex    |
++--------+--------------+--------+------+--------+
+|    101 | Arya         | Mca    | 2023 | female |
+|    102 | Harikrishnan | Bca    | 2023 | male   |
+|    104 | Amritha      | bsc cs | 2022 | female |
++--------+--------------+--------+------+--------+
+
+ INSERT INTO department VALUES(419,"Bca","Divya s ayyar","7518190051"),(420,"Bcom","Nithya","7518190062");
+Query OK, 2 rows affected (0.03 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM department;
++--------+----------+---------------+------------+
+| dep_no | dep_name | HOD           | phoneno    |
++--------+----------+---------------+------------+
+|    419 | Bca      | Divya s ayyar | 7518190051 |
+|    420 | Bcom     | Nithya        | 7518190062 |
++--------+----------+---------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM student;
++--------+--------------+--------+------+--------+
+| rollno | name         | degree | year | sex    |
++--------+--------------+--------+------+--------+
+|    101 | Arya         | Mca    | 2023 | female |
+|    102 | Harikrishnan | Bca    | 2023 | male   |
+|    104 | Amritha      | bsc cs | 2022 | female |
++--------+--------------+--------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> DESC professor;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| emp_id     | int(11)     | NO   | PRI | NULL    |       |
+| name       | varchar(30) | YES  |     | NULL    |       |
+| course     | varchar(20) | YES  |     | NULL    |       |
+| sex        | varchar(20) | YES  |     | NULL    |       |
+| start_year | int(11)     | YES  |     | NULL    |       |
+| phoneno    | int(11)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> INSERT INTO professor VALUES(2010,"sreelakshmi","Bca","female",2019,7510217161);
+ERROR 1264 (22003): Out of range value for column 'phoneno' at row 1
+mysql> ALTER TABLE professor MODIFY phoneno varchar(50);
+Query OK, 0 rows affected (0.69 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO professor VALUES(2010,"sreelakshmi","Bca","female",2019,"7510217161");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO professor VALUES(2044,"Akshay","Bcom","male",2022,"9856217161");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> SELECT * FROM professor;
++--------+-------------+--------+--------+------------+------------+
+| emp_id | name        | course | sex    | start_year | phoneno    |
++--------+-------------+--------+--------+------------+------------+
+|   2010 | sreelakshmi | Bca    | female |       2019 | 7510217161 |
+|   2044 | Akshay      | Bcom   | male   |       2022 | 9856217161 |
++--------+-------------+--------+--------+------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> DESC course;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| course_id   | int(11)     | NO   | PRI | NULL    |       |
+| course_name | varchar(30) | YES  |     | NULL    |       |
+| min_credit  | int(11)     | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT INTO course VALUES(3023,"BA English",10);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO course VALUES(4583,"BA Economics",8);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> SELECT * FROM course;
++-----------+--------------+------------+
+| course_id | course_name  | min_credit |
++-----------+--------------+------------+
+|      3023 | BA English   |         10 |
+|      4583 | BA Economics |          8 |
++-----------+--------------+------------+
+2 rows in set (0.00 sec)
+
+INSERT INTO professor VALUES(8550,"Angitha","cs","female",1992,"9112346710");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> SELECT * FROM professor;
++--------+-------------+--------+--------+------------+------------+
+| emp_id | name        | course | sex    | start_year | phoneno    |
++--------+-------------+--------+--------+------------+------------+
+|   2010 | sreelakshmi | Bca    | female |       2019 | 7510217161 |
+|   2044 | Akshay      | Bcom   | male   |       2022 | 9856217161 |
+|   8550 | Angitha     | cs     | female |       1992 | 9112346710 |
++--------+-------------+--------+--------+------------+------------+
+
+ delete from professor where start_year=1992;
+Query OK, 1 row affected (0.06 sec)
+
+mysql> SELECT * FROM professor;
++--------+-------------+--------+--------+------------+------------+
+| emp_id | name        | course | sex    | start_year | phoneno    |
++--------+-------------+--------+--------+------------+------------+
+|   2010 | sreelakshmi | Bca    | female |       2019 | 7510217161 |
+|   2044 | Akshay      | Bcom   | male   |       2022 | 9856217161 |
++--------+-------------+--------+--------+------------+------------+
+
+mysql> INSERT INTO professor VALUES(5671,"Vishnu","Mca","male",2015,"9813234671");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> SELECT * FROM professor;
++--------+-------------+--------+--------+------------+------------+
+| emp_id | name        | course | sex    | start_year | phoneno    |
++--------+-------------+--------+--------+------------+------------+
+|   2010 | sreelakshmi | Bca    | female |       2019 | 7510217161 |
+|   2044 | Akshay      | Bcom   | male   |       2022 | 9856217161 |
+|   5671 | Vishnu      | Mca    | male   |       2015 | 9813234671 |
++--------+-------------+--------+--------+------------+------------+
+
+ update professor  set phoneno="0476-4567878" where course="Mca";
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM professor;
++--------+-------------+--------+--------+------------+--------------+
+| emp_id | name        | course | sex    | start_year | phoneno      |
++--------+-------------+--------+--------+------------+--------------+
+|   2010 | sreelakshmi | Bca    | female |       2019 | 7510217161   |
+|   2044 | Akshay      | Bcom   | male   |       2022 | 9856217161   |
+|   5671 | Vishnu      | Mca    | male   |       2015 | 0476-4567878 |
++--------+-------------+--------+--------+------------+--------------+
+
+SELECT * FROM professor where start_year>1999 and start_year<2023 order by name;
++--------+-------------+--------+--------+------------+--------------+
+| emp_id | name        | course | sex    | start_year | phoneno      |
++--------+-------------+--------+--------+------------+--------------+
+|   2044 | Akshay      | Bcom   | male   |       2022 | 9856217161   |
+|   2010 | sreelakshmi | Bca    | female |       2019 | 7510217161   |
+|   5671 | Vishnu      | Mca    | male   |       2015 | 0476-4567878 |
++--------+-------------+--------+--------+------------+--------------+
+3 rows in set (0.00 sec)
+
+INSERT INTO professor VALUES(7641,"sneha","Mca","female",1995,"7613234671");
+Query OK, 1 row affected (0.06 sec)
+
+mysql> SELECT * FROM professor;
++--------+-------------+--------+--------+------------+--------------+
+| emp_id | name        | course | sex    | start_year | phoneno      |
++--------+-------------+--------+--------+------------+--------------+
+|   2010 | sreelakshmi | Bca    | female |       2019 | 7510217161   |
+|   2044 | Akshay      | Bcom   | male   |       2022 | 9856217161   |
+|   5671 | Vishnu      | Mca    | male   |       2015 | 0476-4567878 |
+|   7641 | sneha       | Mca    | female |       1995 | 7613234671   |
++--------+-------------+--------+--------+------------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM professor where start_year>1990 and start_year<2000;
++--------+-------+--------+--------+------------+------------+
+| emp_id | name  | course | sex    | start_year | phoneno    |
++--------+-------+--------+--------+------------+------------+
+|   7641 | sneha | Mca    | female |       1995 | 7613234671 |
++--------+-------+--------+--------+------------+------------+
+
+
+
+
